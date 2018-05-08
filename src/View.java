@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,7 +12,8 @@ import javax.swing.JTextArea;
 public class View extends JComponent implements MouseListener{
 	
 	private final Board board; 
-	private JTextArea textBox; 
+	private JTextArea textBox;
+	private Point mouseP;
 	
 	public View(Board board)
 	{
@@ -62,8 +64,12 @@ public class View extends JComponent implements MouseListener{
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("......");
+	public void mouseClicked(MouseEvent e) {
+		
+		mouseP = e.getPoint();
+		System.out.println(board.getSquare(mouseP.x/62, mouseP.y/62).getType() +"  "+board.getSquare(mouseP.x/62, mouseP.y/62).getColor() );
+		board.getSquare(mouseP.x/62, mouseP.y/62).setSelected(true);
+		
 		
 	}
 
@@ -80,8 +86,23 @@ public class View extends JComponent implements MouseListener{
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) {
+		Point lastMousePoint = mouseP; //mousePoint used to keep track of where the piece should be drawn
+		mouseP = e.getPoint();
+		for(int i = 0; i<8; i++){ //nested for loops iterate through the whole board
+			for(int j=0; j<8; j++){
+				if(View.this.board.hasPiece(i, j)){
+					if(View.this.board.getSquare(i,j).isSelected()){
+						double dx = mouseP.getX() - lastMousePoint.getX(); //calculate how much to change piece position
+						double dy = mouseP.getY() - lastMousePoint.getY();
+						System.out.println(dx);
+						System.out.println(dy);
+						View.this.board.getSquare(i, j).translate((int)dx,(int)dy); //translate piece
+					}
+				}
+			}
+		}
+		repaint(); //repaints the View everytime mouse is dragged
 		
 	}
 

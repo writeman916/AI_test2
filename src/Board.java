@@ -14,6 +14,7 @@ private Piece[][] board;
 			}
 		}	
 		//this adds pieces to the board
+				//black pieces
 				setSquare(4,0,new King(4,0,true));
 				setSquare(0,0,new Rook(0,0,true));
 				setSquare(1,0,new Knight(1,0,true));
@@ -37,6 +38,53 @@ private Piece[][] board;
 				for(int i=0;i<8;i++){
 					setSquare(i,6, new Pawn(i,6,false));
 				}
+	}
+	
+	
+	
+	public Board(Board b){
+		board = new Piece[8][8]; //initializes board
+		//this for loop interates through board and fills it with null objects
+		for(int i = 0; i<8; i++){
+			for(int j = 0; j<8; j++){
+				board[i][j] = null;
+			}
+		}
+		for(int i = 0; i<8; i++){
+			for(int j=0; j<8; j++){
+				if(b.hasPiece(i,j)){
+					if(b.getSquare(i, j).getColor() == false){ //case that piece is white
+						if(b.getSquare(i, j).getType() == "King"){
+							board[i][j] = new King(i,j,false);
+						}else if(b.getSquare(i,j).getType() == "Queen"){
+							board[i][j] = new Queen(i,j,false);
+						}else if(b.getSquare(i,j).getType() == "Rook"){
+							board[i][j] = new Rook(i,j,false);
+						}else if(b.getSquare(i,j).getType() == "Bishop"){
+							board[i][j] = new Bishop(i,j,false);
+						}else if(b.getSquare(i,j).getType() == "Knight"){
+							board[i][j] = new Knight(i,j,false);
+						}else if(b.getSquare(i, j).getType() == "Pawn"){
+							board[i][j] = new Pawn(i,j,false);
+						}
+					}else{ //case that piece is black
+						if(b.getSquare(i, j).getType() == "King"){
+							board[i][j] = new King(i,j,true);
+						}else if(b.getSquare(i,j).getType() == "Queen"){
+							board[i][j] = new Queen(i,j,true);
+						}else if(b.getSquare(i,j).getType() == "Rook"){
+							board[i][j] = new Rook(i,j,true);
+						}else if(b.getSquare(i,j).getType() == "Bishop"){
+							board[i][j] = new Bishop(i,j,true);
+						}else if(b.getSquare(i,j).getType() == "Knight"){
+							board[i][j] = new Knight(i,j,true);
+						}else if(b.getSquare(i, j).getType() == "Pawn"){
+							board[i][j] = new Pawn(i,j,true);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	
