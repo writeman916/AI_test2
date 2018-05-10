@@ -53,8 +53,11 @@ public abstract class  Piece {
 		squareOn.setLocation(row, col);
 		return true;
 	}
-
+	// Point2D
+	public boolean contains(Point p){
+		return x<= p.getX() && (x + 62) >= p.getX() && y<= p.getY() && (y+62) >= p.getY();
+	}
 	public abstract String getType();
 	public abstract void draw(Graphics g);
-//	public abstract boolean checkLegalMove(Point p, Board b);
+	public abstract boolean checkLegalMove(Point p, Board b);
 }

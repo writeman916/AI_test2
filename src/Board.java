@@ -1,6 +1,10 @@
-import javax.swing.JComponent;
+import java.awt.Graphics;
 
-public class Board {
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+
+
+public class Board extends JPanel{
 private Piece[][] board;
 	
 	public Board(){
@@ -111,4 +115,9 @@ private Piece[][] board;
 			return false;
 		}
 	}
+	
+	
+    public void paintComponent(Graphics g){
+        
+    }   
 }
